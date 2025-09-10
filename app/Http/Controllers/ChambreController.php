@@ -175,15 +175,13 @@ public function show($id)
         ->where('date_depart', '>=', $aujourdHui)
         ->orderBy('date_depart', 'asc')
         ->first();
+        $statut = $reservationEnCours && $reservationEnCours->date_arrivee <= $aujourdHui
+            ? 'occupée'
+            : 'disponible';
 
-    // 📌 Déterminer le statut
-    $statut = $reservationEnCours && $reservationEnCours->date_arrivee <= $aujourdHui
-        ? 'occupée'
-        : 'disponible';
-
-    $disponibleAPartir = $reservationEnCours
-        ? Carbon::parse($reservationEnCours->date_depart)->addDay()->toDateString()
-        : $aujourdHui->toDateString();
+        $disponibleAPartir = $reservationEnCours
+            ? Carbon::parse($reservationEnCours->date_depart)->addDay()->toDateString()
+            : $aujourdHui->toDateString();
 
     // 🖼️ Regrouper les images secondaires par type
     $imagesParType = $chambre->images->groupBy('type');
