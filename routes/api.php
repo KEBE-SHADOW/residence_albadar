@@ -50,6 +50,8 @@ Route::middleware(['auth:sanctum', 'is_super_admin'])->group(function () {
     Route::delete('/admin/{id}', [AdminAuthController::class, 'deleteAdmin']);
     Route::get('/admin/list', [AdminAuthController::class, 'listAdmins']);
     Route::get('/admin/{id}', [AdminAuthController::class, 'showAdmin']);
+    Route::put('/admin/profile', [AdminAuthController::class, 'updateProfile']);
+
     
 
 
